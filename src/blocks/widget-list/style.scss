@@ -1,0 +1,82 @@
+/*
+* Style Works for both Editor and Frontend
+*/
+
+// .wp-block-widget-list-block {
+// 	background-color: #21759b;
+// 	color: #fff;
+// 	padding: 2px;
+// }
+
+.heading {
+	text-align: center;
+	font-size: 30px;
+	margin: 20px 0 70px 0;
+	text-align: center;
+}
+
+.grid-container {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 30px;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.grid-item {
+	position: relative;
+	box-sizing: border-box;
+	padding: 10px;
+	text-align: center;
+	overflow: hidden;
+	box-shadow: 0 14px 25px rgba(0, 0, 0, 0.16);
+}
+
+img {
+	width: 80px;
+	height: 100px;
+	/* object-fit: cover; */
+}
+
+a {
+	text-decoration: none;
+	color: #000;
+	font-size: 18px;
+	padding-bottom: 20px;
+}
+
+.bdt-widget-list-badge {
+	background: #ff006e;
+	position: absolute;
+	top: 0;
+	right: -10px;
+	width: 80px;
+	padding: 1px;
+	line-height: 1;
+	transform: rotate(45deg) translateX(18px);
+	transform-origin: center;
+	overflow: hidden;
+	color: #fff;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.bdt-widget-list-badge.bdt-free {
+	background: #8338ec;
+}
+
+.bdt-widget-list-title {
+	padding-bottom: 30px;
+}
+.loading-message {
+	text-align: center;
+	font-size: 18px;
+	margin-top: 20px auto;
+}
+
+@media screen and (max-width: 768px) {
+	.grid-container {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}

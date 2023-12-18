@@ -1,0 +1,1 @@
+{"version":3,"file":"blocks/widget-list/index.css","mappings":";;;AAAA;;CAAA;AAIA;EACC;AAAD,C","sources":["webpack://widget-list-block/./src/blocks/widget-list/editor.scss"],"sourcesContent":["/*\n* Style Works for Editor Only\n*/\n\n.wp-block-widget-list-block{\n\tborder: 1px dotted rgb(1, 1, 1);\n}\n"],"names":[],"sourceRoot":""}

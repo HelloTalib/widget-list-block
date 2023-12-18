@@ -1,0 +1,31 @@
+{
+  "apiVersion": 2,
+  "name": "widget-list-block/widget-list",
+  "version": "1.0.0",
+  "title": "Widget List Block",
+  "category": "widget-list-block",
+  "icon": "heart",
+  "description": "Widget List Block for showcase ZOLO Blocks features",
+  "supports": {
+    "html": false,
+    "anchor": true
+  },
+  "attributes": {
+    "widgets": {
+      "type": "array",
+      "default": []
+    },
+    "widgetCount": {
+      "type": "number",
+      "default": 0
+    },
+    "perPage": {
+      "type": "number",
+      "default": 12
+    }
+  },
+  "textdomain": "widget-list-block",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}
