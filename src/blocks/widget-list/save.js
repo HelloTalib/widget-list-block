@@ -1,33 +1,39 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-
 const Save = ({ attributes }) => {
 	const widgets = attributes.widgets || [];
 	return (
 		<div>
 			<h3 className="heading">Element Pack Widget List</h3>
-			<div className="grid-container">
-				{widgets.map((widget) => (
-					<div className="grid-item" key={widget.id}>
-						<a href="#" className="bdt-widget-list-item">
-							<div className="bdt-widget-list-icon">
-								<img
-									src={widget.image}
-									width="100"
-									height="100"
-									alt=""
-								/>
-							</div>
-							<div className="bdt-widget-list-title">
+			<div className="zolo-container">
+				<div className="zolo-blocks-list-wrap zolo-blocks__grid">
+					{widgets.map((widget) => (
+						<a
+							href={widget.demo_link}
+							className="zolo-block-list-item"
+							key={widget.id}
+						>
+							<span className="zolo-block-list-icon">
+									{/* Render the fetched SVG HTML */}
+									<div
+										dangerouslySetInnerHTML={{
+											__html: widget.load_svg,
+										}}
+									/>
+							</span>
+							<div className="zolo-block-list-title">
 								{widget.title}
 							</div>
-							<div className="bdt-widget-list-badge">
-								<span className="bdt-widget-type">
-									{widget.pro_widget === '1' ? 'pro' : 'free'}
+							<div className="zolo-block-list-badge">
+								<span className="zolo-block-type zolo-free">
+									Free
+								</span>
+								<span className="zolo-block-type zolo-popular">
+									Popular
 								</span>
 							</div>
 						</a>
-					</div>
-				))}
+					))}
+				</div>
 			</div>
 		</div>
 	);

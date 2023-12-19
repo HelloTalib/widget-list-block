@@ -16,18 +16,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./editor.scss */ "./src/blocks/widget-list/editor.scss");
 /* harmony import */ var _utilities_buildURL__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utilities/buildURL */ "./src/utilities/buildURL.js");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _utilities_shadowRoot__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utilities/shadowRoot */ "./src/utilities/shadowRoot.js");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__);
 
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-undef */
 /* eslint-disable @wordpress/no-unsafe-wp-apis */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 const {
-  useState
-} = wp.element;
-const {
+  useState,
   useEffect
 } = wp.element;
 // editor style
@@ -41,80 +43,76 @@ const {
 
 
 
+
+const HEADING_LAYOUT_LABEL = __('Heading Layout', 'gutenberg-tech');
+const PER_PAGE_LABEL = __('Per Page', 'gutenberg-tech');
+const LoadingMessage = () => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  className: "loading-message"
+}, "Loading...");
+const fetchWidgetList = async (attributes, setAttributes, setIsLoading) => {
+  try {
+    setIsLoading(true);
+    const response = await fetch((0,_utilities_buildURL__WEBPACK_IMPORTED_MODULE_2__["default"])('https://dashboard.bdthemes.io/wp-json/bdthemes/v1/widget-list', {
+      page: 1,
+      per_page: attributes.perPage,
+      search: '',
+      orderby: 'title',
+      order: 'desc',
+      widget_categories: 'element-pack',
+      widget_tag: '',
+      widget_author: '',
+      widget_author_role: ''
+    }));
+    const data = await response.json();
+    setAttributes({
+      widgets: data
+    });
+  } catch (error) {
+    // Handle error as needed
+  } finally {
+    setIsLoading(false);
+  }
+};
 function Edit(_ref) {
   let {
     attributes,
     setAttributes
   } = _ref;
   const [isLoading, setIsLoading] = useState(false);
-  // const [widgets, setWidgets] = useState([]);
-  const getWidgetList = async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch((0,_utilities_buildURL__WEBPACK_IMPORTED_MODULE_2__["default"])('https://dashboard.bdthemes.io/wp-json/bdthemes/v1/widget-list', {
-        page: 1,
-        per_page: attributes.perPage,
-        search: '',
-        orderby: 'title',
-        order: 'desc',
-        // 'widget_type': 'pro',
-        widget_categories: 'element-pack',
-        widget_tag: '',
-        widget_author: '',
-        widget_author_role: ''
-      }));
-      const data = await response.json();
-      // setWidgets(data);
-      setAttributes({
-        widgets: data
-      });
-    } catch (error) {
-      // console.error('Error fetching widget list:', error);
-      // Handle error as needed
-    } finally {
-      setIsLoading(false);
-    }
-  };
   useEffect(() => {
-    getWidgetList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchWidgetList(attributes, setAttributes, setIsLoading);
   }, [attributes.perPage]);
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
-    title: __('Heading Layout', 'gutenberg-tech')
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalNumberControl, {
-    label: __('Per Page', 'gutenberg-tech'),
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.PanelBody, {
+    title: HEADING_LAYOUT_LABEL
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.__experimentalNumberControl, {
+    label: PER_PAGE_LABEL,
     value: attributes.perPage,
     onChange: perPage => setAttributes({
       perPage
     }),
     min: 1,
     max: 100
-  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
+  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__.useBlockProps)(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
     className: "heading"
-  }, "Element Pack Widget List"), isLoading ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "loading-message"
-  }, "Loading...") : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "grid-container"
-  }, attributes.widgets.map(widget => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "grid-item",
-    key: widget.id
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-    href: widget.demo_link,
-    className: "bdt-widget-list-item"
+  }, "Element Pack Widget List"), isLoading ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(LoadingMessage, null) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "zolo-container"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "bdt-widget-list-icon"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    src: widget.image,
-    width: "100",
-    height: "100",
-    alt: ""
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "bdt-widget-list-title"
+    className: "zolo-blocks-list-wrap zolo-blocks__grid"
+  }, attributes.widgets.map(widget => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: widget.demo_link,
+    className: "zolo-block-list-item",
+    key: widget.id
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utilities_shadowRoot__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    image: widget.load_svg
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "zolo-block-list-title"
   }, widget.title), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "bdt-widget-list-badge"
+    className: "zolo-block-list-badge"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "bdt-widget-type"
-  }, widget.pro_widget === '1' ? 'pro' : 'free'))))))));
+    className: "zolo-block-type zolo-free"
+  }, "Free"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "zolo-block-type zolo-popular"
+  }, "Popular"))))))));
 }
 
 /***/ }),
@@ -167,7 +165,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
-
 const Save = _ref => {
   let {
     attributes
@@ -176,27 +173,28 @@ const Save = _ref => {
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
     className: "heading"
   }, "Element Pack Widget List"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "grid-container"
-  }, widgets.map(widget => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "grid-item",
-    key: widget.id
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-    href: "#",
-    className: "bdt-widget-list-item"
+    className: "zolo-container"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "bdt-widget-list-icon"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    src: widget.image,
-    width: "100",
-    height: "100",
-    alt: ""
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "bdt-widget-list-title"
-  }, widget.title), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "bdt-widget-list-badge"
+    className: "zolo-blocks-list-wrap zolo-blocks__grid"
+  }, widgets.map(widget => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: widget.demo_link,
+    className: "zolo-block-list-item",
+    key: widget.id
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "bdt-widget-type"
-  }, widget.pro_widget === '1' ? 'pro' : 'free')))))));
+    className: "zolo-block-list-icon"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    dangerouslySetInnerHTML: {
+      __html: widget.load_svg
+    }
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "zolo-block-list-title"
+  }, widget.title), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "zolo-block-list-badge"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "zolo-block-type zolo-free"
+  }, "Free"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "zolo-block-type zolo-popular"
+  }, "Popular")))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Save);
 
@@ -227,6 +225,52 @@ const buildURL = (url, parameters) => {
   return url;
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (buildURL);
+
+/***/ }),
+
+/***/ "./src/utilities/shadowRoot.js":
+/*!*************************************!*\
+  !*** ./src/utilities/shadowRoot.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const ShadowRootComponent = props => {
+  const myRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const hostElement = myRef.current;
+
+    // Create a shadow root
+    const shadowRoot = hostElement.attachShadow({
+      mode: 'open'
+    });
+
+    // Create an element inside the shadow DOM
+    const div = document.createElement('div');
+
+    // Remove double quotes from the start and end of props.image
+    const sanitizedImage = props.image.replace(/^"|"$/g, '');
+
+    // Set the content of the element as SVG
+    div.innerHTML = sanitizedImage;
+
+    // Append the element to the shadow DOM
+    shadowRoot.append(div);
+  }, [props.image]); // Run this effect whenever the props.image changes
+
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "zolo-block-list-icon",
+    ref: myRef
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ShadowRootComponent);
 
 /***/ }),
 
